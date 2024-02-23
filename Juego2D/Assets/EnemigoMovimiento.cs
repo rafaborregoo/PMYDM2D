@@ -49,6 +49,8 @@ public class EnemigoMovimiento : MonoBehaviour
         {
             // Destruir al jugador
             Destroy(colision.gameObject);
+
+            GameManager.Instance.PerderVida();
         }
     }
 }

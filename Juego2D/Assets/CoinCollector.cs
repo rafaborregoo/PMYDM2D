@@ -1,23 +1,24 @@
 using UnityEngine;
-using UnityEngine.UI; // Asegúrate de incluir esta biblioteca para trabajar con la UI.
+using UnityEngine.UI; // Necesitas esta biblioteca para trabajar con UI.
 
 public class CoinCollector : MonoBehaviour
 {
-    
     public static int totalCoins = 0; // Contador de monedas.
     public static int score = 0; // Contador de puntos.
+    public static Text coinsText; // Referencia al texto de monedas en el HUD.
+    public static Text scoreText; // Referencia al texto de puntuación en el HUD.
 
-    // Método para incrementar el contador de monedas y mostrarlo en la consola.
+    // Método para incrementar el contador de monedas y actualizar el HUD.
     public static void AddCoin()
     {
         totalCoins++;
-        Debug.Log("Monedas Recolectadas: " + totalCoins);
+        coinsText.text = "Monedas: " + totalCoins;
     }
 
-    // Método para añadir puntos y mostrar el total en la consola.
+    // Método para añadir puntos y actualizar el HUD.
     public static void AddPoints(int points)
     {
-        score += points; // Añade los puntos al total.
-        Debug.Log("Puntos: " + score); // Muestra el total de puntos en la consola.
+        score += points;
+        scoreText.text = "Puntos: " + score;
     }
 }

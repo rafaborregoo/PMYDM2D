@@ -1,20 +1,21 @@
+
 using UnityEngine;
 
 public class EnemigoMovimiento : MonoBehaviour
 {
-    public float speed = 5f; // Velocidad de movimiento
-    public float distance = 5f; // Distancia a recorrer
+    public float speed = 5f;
+    public float distance = 5f; 
 
-    private Vector3 initialPosition; // Posición inicial del personaje
-    private Vector3 targetPosition; // Posición objetivo hacia donde se moverá
+    private Vector3 initialPosition; 
+    private Vector3 targetPosition; 
 
-    private SpriteRenderer spriteRenderer; // Referencia al componente SpriteRenderer para girar el sprite
+    private SpriteRenderer spriteRenderer; 
 
     private void Start()
     {
-        initialPosition = transform.position; // Guarda la posición inicial del personaje
-        targetPosition = initialPosition + Vector3.right * distance; // Calcula la posición objetivo
-        spriteRenderer = GetComponent<SpriteRenderer>(); // Obtiene el componente SpriteRenderer
+        initialPosition = transform.position; 
+        targetPosition = initialPosition + Vector3.right * distance; 
+        spriteRenderer = GetComponent<SpriteRenderer>(); 
     }
 
     private void Update()
@@ -27,11 +28,10 @@ public class EnemigoMovimiento : MonoBehaviour
 
         // Gira el sprite del personaje
         if (direction.x > 0)
-            spriteRenderer.flipX = false; // No gira si se mueve hacia la derecha
+            spriteRenderer.flipX = false; 
         else if (direction.x < 0)
-            spriteRenderer.flipX = true; // Gira si se mueve hacia la izquierda
+            spriteRenderer.flipX = true; 
 
-        // Verifica si el personaje ha llegado a la posición objetivo
         if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
         {
             // Cambia la posición objetivo
@@ -44,13 +44,13 @@ public class EnemigoMovimiento : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D colision)
     {
-        // Verificar si el enemigo ha tocado al jugador
         if (colision.gameObject.CompareTag("Player"))
         {
-            // Destruir al jugador
-            Destroy(colision.gameObject);
-
-            GameManager.Instance.PerderVida();
+            Vida vida = FindObjectOfType<Vida>();
+            if (vida != null)
+            {
+                vida.PerderVida();
+            }
         }
     }
 }

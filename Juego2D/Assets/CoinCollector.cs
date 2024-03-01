@@ -1,24 +1,33 @@
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI; // Necesitas esta biblioteca para trabajar con UI.
+using UnityEngine.UI;
 
 public class CoinCollector : MonoBehaviour
 {
-    public static int totalCoins = 0; // Contador de monedas.
-    public static int score = 0; // Contador de puntos.
-    public static Text coinsText; // Referencia al texto de monedas en el HUD.
-    public static Text scoreText; // Referencia al texto de puntuación en el HUD.
-
-    // Método para incrementar el contador de monedas y actualizar el HUD.
-    public static void AddCoin()
+    public int totalCoins = 0; // Hace que totalCoins no sea estático
+    public int score = 0; // Hace que score no sea estático
+    public TMP_Text scoreText; // Referencia al componente de texto de la UI donde se mostrará el puntaje
+    
+    private void Start()
     {
-        totalCoins++;
-        coinsText.text = "Monedas: " + totalCoins;
+        UpdateScoreText(); // Asegura que el texto de puntuación se inicialice correctamente al comenzar
     }
 
-    // Método para añadir puntos y actualizar el HUD.
-    public static void AddPoints(int points)
+    public void AddCoin()
+    {
+        totalCoins++;
+        Debug.Log("Monedas Recolectadas: " + totalCoins);
+    }
+
+    public void AddPoints(int points)
     {
         score += points;
-        scoreText.text = "Puntos: " + score;
+        Debug.Log("Puntos: " + score);
+        UpdateScoreText(); // Actualiza el texto de puntuación cada vez que se modifica el puntaje
+    }
+
+    private void UpdateScoreText()
+    {
+        if (scoreText != null) scoreText.text = "Score: " + score;
     }
 }

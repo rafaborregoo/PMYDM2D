@@ -17,8 +17,9 @@ public class ControladorPersonaje : MonoBehaviour
 
     public bool estaCorriendo;
     private Animator animator;
-    private AudioSource audiosource;
-    public AudioClip jumClip;
+
+    private AudioSource audioSource;
+    public AudioClip jumpClip;
 
     // Variables para el doble salto
     private int saltosRestantes = 2; // Número de saltos permitidos antes de tocar el suelo
@@ -28,8 +29,6 @@ public class ControladorPersonaje : MonoBehaviour
         rigiBody2D = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
-        audiosource = GetComponent<AudioSource>();
-
     }
 
     void Update()
@@ -43,8 +42,6 @@ public class ControladorPersonaje : MonoBehaviour
         MovimientoProceso();
         ProcesoSalto();
     }
-
-    
 
     private void MovimientoProceso()
     {
@@ -65,14 +62,15 @@ public class ControladorPersonaje : MonoBehaviour
     }
 
     private void ProcesoSalto()
-    {           
+    {
         animator.SetBool("EstaSaltando", !estaEnSuelo);
         if (Input.GetKeyDown(KeyCode.Space) && (estaEnSuelo || saltosRestantes > 0))
         {
             rigiBody2D.velocity = new Vector2(rigiBody2D.velocity.x, 0); // Resetea la velocidad en Y para hacer el salto más consistente
             rigiBody2D.AddForce(Vector2.up * velocidadSalto, ForceMode2D.Impulse);
-            audiosource.PlayOneShot(jumClip);
- 
+            //AudioSource.PlayOneShot(jumpClip);
+
+
 
             if (!estaEnSuelo && saltosRestantes == 1) // Condicional para activar la animación de doble salto
             {
@@ -97,3 +95,4 @@ public class ControladorPersonaje : MonoBehaviour
         return raycastHit.collider != null;
     }
 }
+
